@@ -42,7 +42,7 @@ class Msg extends AbstractResponseWorker
         }
         $result = $worker->_getResult($bean);
         if (empty($result)) {
-            $result = (new DefaultResponseWorker())->_getResult($bean);
+            $result = $this->genTextResult("result is blank",$bean);
         }
 
         return $result;
