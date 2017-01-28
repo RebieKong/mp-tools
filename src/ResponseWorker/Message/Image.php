@@ -11,12 +11,11 @@ namespace RebieKong\MpTools\ResponseWorker\Message;
 use RebieKong\MpTools\Core\AbstractResponseWorker;
 use RebieKong\MpTools\Entity\MessageBean;
 
-
-class Location extends AbstractResponseWorker
+class Image extends AbstractResponseWorker
 {
 
     public function _getResult(MessageBean $bean)
     {
-        return $this->genTextResult("[203]服务器已经接收到你的定位消息，但并未使用业务钩子进行监听", $bean);
+        return $this->genTextResult("[203]服务器已经接收到你的图片消息，但并未使用业务钩子进行监听", $bean);
     }
 }

@@ -17,6 +17,6 @@ class Text extends AbstractResponseWorker
 
     public function _getResult(MessageBean $bean)
     {
-        return $this->genTextResult("[203]系统已经接受到你的文字消息，但并未使用业务钩子进行监听", $bean);
+        return $this->genTextResult("[203]服务器已经接收到你的文字消息，但并未使用业务钩子进行监听", $bean);
     }
 }

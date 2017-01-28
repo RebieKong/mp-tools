@@ -16,6 +16,6 @@ class Voice extends AbstractResponseWorker
 
     public function _getResult(MessageBean $bean)
     {
-        // TODO: Implement _getResult() method.
+        return '';
     }
 }
