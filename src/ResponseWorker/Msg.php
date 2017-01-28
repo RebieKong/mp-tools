@@ -11,7 +11,6 @@ namespace RebieKong\MpTools\ResponseWorker;
 
 use RebieKong\MpTools\Core\AbstractResponseWorker;
 use RebieKong\MpTools\Entity\MessageBean;
-use RebieKong\MpTools\ResponseWorker\Message\DefaultResponseWorker;
 use RebieKong\MpTools\ResponseWorker\Message\Image;
 use RebieKong\MpTools\ResponseWorker\Message\Link;
 use RebieKong\MpTools\ResponseWorker\Message\Location;
@@ -35,9 +34,9 @@ class Msg extends AbstractResponseWorker
             'link'       => Link::getClassName(),
         ];
 
+        /** @var AbstractResponseWorker $worker */
         if (in_array($bean->getMsgType(), $workerList)) {
-            /** @var AbstractResponseWorker $worker */
-            $worker = new $workerList[ $bean->getMsgType() ]();
+            $worker = new $workerList[ $bean->getMsgType() ];
         } else {
             $worker = new DefaultResponseWorker();
         }

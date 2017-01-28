@@ -6,7 +6,7 @@
  * Time: 上午1:05
  */
 
-namespace RebieKong\MpTools\ResponseWorker\Message;
+namespace RebieKong\MpTools\ResponseWorker;
 
 use RebieKong\MpTools\Core\AbstractResponseWorker;
 use RebieKong\MpTools\Entity\MessageBean;
