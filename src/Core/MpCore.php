@@ -63,7 +63,7 @@ class MpCore extends AbstractMp
 
     public function validateSign()
     {
-        $msgSignature = ArrayUtils::get($_GET,'msg_signature');
+        $msgSignature = ArrayUtils::get($_GET,'signature');
         $timestamp = ArrayUtils::get($_GET,'timestamp');
         $nonce = ArrayUtils::get($_GET,'nonce');
 
