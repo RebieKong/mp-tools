@@ -35,7 +35,7 @@ class Msg extends AbstractResponseWorker
         ];
 
         /** @var AbstractResponseWorker $worker */
-        if (in_array($bean->getMsgType(), $workerList)) {
+        if (in_array(strtolower($bean->getMsgType()), $workerList)) {
             $worker = new $workerList[ $bean->getMsgType() ];
         } else {
             $worker = new DefaultResponseWorker();
