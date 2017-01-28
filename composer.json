@@ -1,0 +1,26 @@
+{
+  "name": "rebie-kong/mp-tools",
+  "description": "",
+  "minimum-stability": "dev",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "RebieKong",
+      "email": "main@rebiekong.com"
+    }
+  ],
+  "require": {
+    "PreviewFramework/Utils": "*"
+  },
+  "autoload":{
+    "psr-4":{
+      "RebieKong\\MpTools\\":"src/"
+    }
+  },
+  "repositories": {
+    "preview-utils": {
+      "type": "vcs",
+      "url": "https://git.rebiekong.cn/PreviewFramework/Utils.git"
+    }
+  }
+}

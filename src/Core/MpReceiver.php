@@ -1,0 +1,163 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: rebie
+ * Date: 17-1-5
+ * Time: 下午3:09
+ */
+
+namespace RebieKong\MpTools\Core;
+
+
+use RebieKong\MpTools\Entity\MessageBean;
+use RebieKong\MpTools\ResponseWorker\Event;
+use RebieKong\MpTools\ResponseWorker\Msg;
+
+final class MpReceiver
+{
+
+    /**
+     * @var \DOMDocument
+     */
+    private $xml;
+    /**
+     * @var MessageBean
+     */
+    private $bean;
+    /**
+     * @var AbstractResponseWorker
+     */
+    private $responseWorker;
+
+    /**
+     * MpReceiver constructor.
+     *
+     * @param string $data
+     */
+    public function __construct($data)
+    {
+        $this->setBean($data);
+
+        $type = $this->getBean()->getMsgType();
+        if (strtolower($type) === 'event') {
+            $class = Event::getClassName();
+        } else {
+            $class = Msg::getClassName();
+        }
+        $this->responseWorker = new $class($data);
+    }
+
+    /**
+     * @param string $data
+     *
+     * @throws \Exception
+     */
+    private function setBean($data)
+    {
+        if (is_null($data)) {
+            throw new \Exception("DATA CAN BE NULL");
+        }
+        $bean = new MessageBean();
+        $data = $this->getTags($data);
+        foreach ($data as $key => $value) {
+            $bean->$key = $value;
+        }
+        $this->bean = $bean;
+    }
+
+    /**
+     * @param string $data
+     *
+     * @return string[]
+     */
+    private function getTags($data)
+    {
+        $result = [];
+        $root = $this->getXml($data)->childNodes->item(0)->childNodes;
+        for ($i = 0 ; $i < $root->length ; $i++) {
+            if ($root->item($i)->nodeName != '#text') {
+                $result[$root->item($i)->nodeName] = trim($root->item($i)->nodeValue);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string $data
+     *
+     * @return \DOMDocument|null
+     */
+    private function getXml($data = null)
+    {
+        if (is_null($data)) {
+            return null;
+        }
+
+        if (is_null($this->xml)) {
+            $xml = new \DOMDocument();
+            $xml->loadXML($data);
+            $this->xml = $xml;
+        }
+
+        return $this->xml;
+    }
+
+    /**
+     * @param string $data
+     *
+     * @return MessageBean
+     */
+    private function getBean($data = null)
+    {
+        if (is_null($this->bean)) {
+            $this->setBean($data);
+        }
+
+        return $this->bean;
+    }
+
+    /**
+     * @param $data
+     *
+     * @param \RebieKong\MpTools\Core\MpCore $decrypt
+     *
+     * @return static
+     * @throws \Exception
+     */
+    public static function init($data, MpCore $decrypt = null)
+    {
+        $xml = new \DOMDocument();
+        $xml->loadXML($data);
+        if ($xml->getElementsByTagName('Encrypt')->length > 0) {
+            if (is_null($decrypt)) {
+                throw new \Exception("Data Is Encrypt But Decrypt Is NULL");
+            }
+            $data = $decrypt->decrypt($data);
+            $xml  = new \DOMDocument();
+            $xml->loadXML($data);
+        }
+
+        return new static($data);
+    }
+
+    public function getResult()
+    {
+        $response = $this->responseWorker->_getResult($this->getBean());
+
+        return $response;
+    }
+}
+
+/*
+        Db::execute("INSERT INTO wx_message (msg_id, user_id, from_id, create_time, message_type, data, response)
+VALUES (?, ?, ?, ?, ?, ?, ?)", [
+            $this->getBean()->getMsgId(),
+            $this->getBean()->getToUserName(),
+            $this->getBean()->getFromUserName(),
+            date('Y-m-d H:i:s',$this->getBean()->getCreateTime()),
+            $this->getBean()->getMsgType(),
+            json_encode($this->getBean()->getAttr(),JSON_UNESCAPED_UNICODE),
+            ($response===false)?'':$response,
+        ]);
+ */
