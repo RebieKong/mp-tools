@@ -11,8 +11,8 @@ namespace RebieKong\MpTools;
 
 
 use PreviewFramework\Utils\ArrayUtils;
-use RebieKong\MpTools\ResponseWorker\MpCore;
-use RebieKong\MpTools\ResponseWorker\MpReceiver;
+use RebieKong\MpTools\Core\MpCore;
+use RebieKong\MpTools\Core\MpReceiver;
 
 class MpTask
 {
