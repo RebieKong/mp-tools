@@ -9,42 +9,38 @@
 namespace RebieKong\MpTools\ResponseWorker;
 
 
-use RebieKong\MpTools\Core\AbstractResponseWorker;
 use RebieKong\MpTools\Entity\MessageBean;
+use RebieKong\MpTools\HookInterface;
 use RebieKong\MpTools\ResponseWorker\Message\Image;
 use RebieKong\MpTools\ResponseWorker\Message\Link;
 use RebieKong\MpTools\ResponseWorker\Message\Location;
-use RebieKong\MpTools\ResponseWorker\Message\ShortVoice;
+use RebieKong\MpTools\ResponseWorker\Message\ShortVideo;
 use RebieKong\MpTools\ResponseWorker\Message\Text;
 use RebieKong\MpTools\ResponseWorker\Message\Video;
 use RebieKong\MpTools\ResponseWorker\Message\Voice;
 
-class Msg extends AbstractResponseWorker
+class Msg implements ResponseWorkerFactoryInterface
 {
 
-    public function _getResult(MessageBean $bean)
+    public static function getResponseWorker(MessageBean $bean,HookInterface $hook)
     {
         $workerList = [
             'text'       => Text::getClassName(),
             'location'   => Location::getClassName(),
             'voice'      => Voice::getClassName(),
             'image'      => Image::getClassName(),
-            'shortvideo' => ShortVoice::getClassName(),
+            'shortvideo' => ShortVideo::getClassName(),
             'video'      => Video::getClassName(),
             'link'       => Link::getClassName(),
         ];
 
         /** @var AbstractResponseWorker $worker */
         if (in_array(strtolower($bean->getMsgType()), $workerList)) {
-            $worker = new $workerList[ $bean->getMsgType() ];
+            $worker = new $workerList[ $bean->getMsgType() ]($hook);
         } else {
-            $worker = new DefaultResponseWorker();
-        }
-        $result = $worker->_getResult($bean);
-        if (empty($result)) {
-            $result = $this->genTextResult("result is blank",$bean);
+            $worker = new DefaultResponseWorker($hook);
         }
 
-        return $result;
+        return $worker;
     }
 }

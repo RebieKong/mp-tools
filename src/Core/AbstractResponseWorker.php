@@ -6,17 +6,31 @@
  * Time: 下午4:36
  */
 
-namespace RebieKong\MpTools\Core;
+namespace RebieKong\MpTools\ResponseWorker;
 
 
 use PreviewFramework\Utils\ObjectTrait;
 use RebieKong\MpTools\Entity\MessageBean;
+use RebieKong\MpTools\HookInterface;
 
 abstract class AbstractResponseWorker
 {
-
-    use TGenResult;
     use ObjectTrait;
 
-    abstract public function _getResult(MessageBean $bean);
+    abstract protected function getTag();
+
+    /**
+     * @var HookInterface
+     */
+    protected $hook;
+
+    public function __construct($hook)
+    {
+        $this->hook = $hook;
+    }
+
+    public function _getResult(MessageBean $bean)
+    {
+        return $this->hook->call($this->getTag(), ['bean' => $bean]);
+    }
 }

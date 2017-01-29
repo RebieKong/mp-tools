@@ -8,15 +8,15 @@
 
 namespace RebieKong\MpTools\ResponseWorker\Message;
 
-use RebieKong\MpTools\Core\AbstractResponseWorker;
-use RebieKong\MpTools\Entity\MessageBean;
+use RebieKong\MpTools\ResponseWorker\AbstractResponseWorker;
 
 
 class Location extends AbstractResponseWorker
 {
 
-    public function _getResult(MessageBean $bean)
+
+    protected function getTag()
     {
-        return $this->genTextResult("[203]服务器已经接收到你的定位消息，但并未使用业务钩子进行监听", $bean);
+        return 'location';
     }
 }

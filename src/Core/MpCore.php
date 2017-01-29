@@ -1,5 +1,5 @@
 <?php
-namespace RebieKong\MpTools\Core;
+namespace RebieKong\MpTools\ResponseWorker;
 
 use PreviewFramework\Utils\ArrayUtils;
 use PreviewFramework\Utils\RandomUtils;
@@ -13,19 +13,7 @@ use PreviewFramework\Utils\RandomUtils;
 class MpCore extends AbstractMp
 {
 
-    private $encryptMode = false;
-
-    public function setEncryptMode($encryptMode)
-    {
-        $this->encryptMode = boolval($encryptMode);
-    }
-
-    public function isEncryptMode()
-    {
-        return boolval($this->encryptMode);
-    }
-
-    public function send($text)
+    public function encrypt($text)
     {
         if ($this->isEncryptMode()) {
             $timeStamp = time();
@@ -33,13 +21,13 @@ class MpCore extends AbstractMp
             $encryptMsg = '';
             $errCode = $this->getCrypt()->encryptMsg($text, $timeStamp, $nonce, $encryptMsg);
             if ($errCode == 0) {
-                return $encryptMsg;
+                $text = $encryptMsg;
             } else {
                 throw new \Exception("Decrypt Error For code:".$errCode);
             }
-        } else {
-            return $text;
         }
+
+        return $text;
     }
 
     public function decrypt($data)
@@ -52,22 +40,10 @@ class MpCore extends AbstractMp
         $nonce = ArrayUtils::get($_GET,'nonce');
         $msg = '';
         $errCode = $this->getCrypt()->decryptMsg($msgSignature, $timestamp, $nonce, $data, $msg);
-        if ($errCode == 0) {
-            return $msg;
-        } else {
+        if ($errCode != 0) {
             throw new \Exception("Decrypt Error For code:".$errCode);
         }
 
+        return $msg;
     }
-
-
-    public function validateSign()
-    {
-        $msgSignature = ArrayUtils::get($_GET,'signature');
-        $timestamp = ArrayUtils::get($_GET,'timestamp');
-        $nonce = ArrayUtils::get($_GET,'nonce');
-
-        return $this->getCrypt()->validateSign($msgSignature, $timestamp, $nonce);
-    }
-
 }

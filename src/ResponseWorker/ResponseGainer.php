@@ -6,15 +6,15 @@
  * Time: 下午4:31
  */
 
-namespace RebieKong\MpTools\Core;
+namespace RebieKong\MpTools\ResponseWorker;
 
 
 use RebieKong\MpTools\Entity\MessageBean;
 
-trait TGenResult
+class ResponseGainer
 {
 
-    protected function genNewResult($articles, MessageBean $dataBean)
+    public static function genNewResult($articles, MessageBean $dataBean)
     {
         $articleItemXml = <<<XML
 <item>
@@ -45,7 +45,7 @@ XML;
             $article);
     }
 
-    protected function genTextResult($content, MessageBean $dataBean)
+    public static function genTextResult($content, MessageBean $dataBean)
     {
         $xml = <<<XML
 <xml>

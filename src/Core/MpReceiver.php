@@ -6,12 +6,10 @@
  * Time: 下午3:09
  */
 
-namespace RebieKong\MpTools\Core;
+namespace RebieKong\MpTools\ResponseWorker;
 
 
 use RebieKong\MpTools\Entity\MessageBean;
-use RebieKong\MpTools\ResponseWorker\Event;
-use RebieKong\MpTools\ResponseWorker\Msg;
 
 final class MpReceiver
 {
@@ -33,18 +31,24 @@ final class MpReceiver
      * MpReceiver constructor.
      *
      * @param string $data
+     * @param $hook
+     *
+     * @internal param $hooker
      */
-    public function __construct($data)
+    public function __construct($data, $hook)
     {
         $this->setBean($data);
 
         $type = $this->getBean()->getMsgType();
         if (strtolower($type) === 'event') {
-            $class = Event::getClassName();
+            $worker = Event::getResponseWorker($this->getBean(),$hook);
         } else {
-            $class = Msg::getClassName();
+            $worker = Msg::getResponseWorker($this->getBean(),$hook);
         }
-        $this->responseWorker = new $class($data);
+        if ( ! ($worker instanceof AbstractResponseWorker)) {
+            $worker = new DefaultResponseWorker($hook);
+        }
+        $this->responseWorker = $worker;
     }
 
     /**
@@ -120,12 +124,13 @@ final class MpReceiver
     /**
      * @param $data
      *
-     * @param \RebieKong\MpTools\Core\MpCore $decrypt
+     * @param $hook
+     * @param \RebieKong\MpTools\ResponseWorker\MpCore $decrypt
      *
      * @return static
      * @throws \Exception
      */
-    public static function init($data, MpCore $decrypt = null)
+    public static function init($data, $hook, MpCore $decrypt = null)
     {
         $xml = new \DOMDocument();
         $xml->loadXML($data);
@@ -138,7 +143,7 @@ final class MpReceiver
             $xml->loadXML($data);
         }
 
-        return new static($data);
+        return new static($data, $hook);
     }
 
     public function getResult()

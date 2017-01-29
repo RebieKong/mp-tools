@@ -8,7 +8,6 @@
 
 namespace RebieKong\MpTools\ResponseWorker;
 
-use RebieKong\MpTools\Core\AbstractResponseWorker;
 use RebieKong\MpTools\Entity\MessageBean;
 
 class DefaultResponseWorker extends AbstractResponseWorker
@@ -16,6 +15,11 @@ class DefaultResponseWorker extends AbstractResponseWorker
 
     public function _getResult(MessageBean $bean)
     {
-        return $this->genTextResult("[400]服务器收到你的请求，但不能正确理解你的请求", $bean);
+        return ResponseGainer::genTextResult("[400]服务器收到你的请求，但不能正确理解你的请求", $bean);
+    }
+
+    protected function getTag()
+    {
+        return 'default';
     }
 }

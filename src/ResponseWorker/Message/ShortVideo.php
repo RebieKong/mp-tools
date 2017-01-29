@@ -10,11 +10,10 @@ namespace RebieKong\MpTools\ResponseWorker\Message;
 
 use RebieKong\MpTools\ResponseWorker\AbstractResponseWorker;
 
-class Video extends AbstractResponseWorker
+class ShortVideo extends AbstractResponseWorker
 {
-
     protected function getTag()
     {
-        return 'video';
+        return 'short_video';
     }
 }
