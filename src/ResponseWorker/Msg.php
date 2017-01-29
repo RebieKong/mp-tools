@@ -9,6 +9,8 @@
 namespace RebieKong\MpTools\ResponseWorker;
 
 
+use RebieKong\MpTools\Core\AbstractResponseWorker;
+use RebieKong\MpTools\Core\ResponseWorkerFactoryInterface;
 use RebieKong\MpTools\Entity\MessageBean;
 use RebieKong\MpTools\HookInterface;
 use RebieKong\MpTools\ResponseWorker\Message\Image;

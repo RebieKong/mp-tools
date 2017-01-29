@@ -11,6 +11,7 @@ namespace RebieKong\MpTools\ResponseWorker;
 
 
 
+use RebieKong\MpTools\Core\ResponseWorkerFactoryInterface;
 use RebieKong\MpTools\Entity\MessageBean;
 use RebieKong\MpTools\HookInterface;
 

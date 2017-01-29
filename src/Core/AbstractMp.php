@@ -1,6 +1,6 @@
 <?php
 
-namespace RebieKong\MpTools\ResponseWorker;
+namespace RebieKong\MpTools\Core;
 
 use PreviewFramework\Utils\ArrayUtils;
 use RebieKong\MpTools\WeChatComponent\WXBizMsgCrypt;

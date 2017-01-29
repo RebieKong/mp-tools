@@ -6,7 +6,7 @@
  * Time: 下午4:36
  */
 
-namespace RebieKong\MpTools\ResponseWorker;
+namespace RebieKong\MpTools\Core;
 
 
 use PreviewFramework\Utils\ObjectTrait;

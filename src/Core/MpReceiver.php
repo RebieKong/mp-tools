@@ -6,10 +6,13 @@
  * Time: 下午3:09
  */
 
-namespace RebieKong\MpTools\ResponseWorker;
+namespace RebieKong\MpTools\Core;
 
 
 use RebieKong\MpTools\Entity\MessageBean;
+use RebieKong\MpTools\ResponseWorker\DefaultResponseWorker;
+use RebieKong\MpTools\ResponseWorker\Event;
+use RebieKong\MpTools\ResponseWorker\Msg;
 
 final class MpReceiver
 {
@@ -125,7 +128,8 @@ final class MpReceiver
      * @param $data
      *
      * @param $hook
-     * @param \RebieKong\MpTools\ResponseWorker\MpCore $decrypt
+     *
+     * @param \RebieKong\MpTools\Core\MpCore $decrypt
      *
      * @return static
      * @throws \Exception

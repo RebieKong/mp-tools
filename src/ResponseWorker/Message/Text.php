@@ -9,7 +9,7 @@
 
 namespace RebieKong\MpTools\ResponseWorker\Message;
 
-use RebieKong\MpTools\ResponseWorker\AbstractResponseWorker;
+use RebieKong\MpTools\Core\AbstractResponseWorker;
 
 class Text extends AbstractResponseWorker
 {
