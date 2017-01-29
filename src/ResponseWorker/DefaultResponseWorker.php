@@ -8,6 +8,7 @@
 
 namespace RebieKong\MpTools\ResponseWorker;
 
+use RebieKong\MpTools\Core\AbstractResponseWorker;
 use RebieKong\MpTools\Entity\MessageBean;
 
 class DefaultResponseWorker extends AbstractResponseWorker
