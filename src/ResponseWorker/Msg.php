@@ -37,7 +37,7 @@ class Msg implements ResponseWorkerFactoryInterface
         ];
 
         /** @var AbstractResponseWorker $worker */
-        if (in_array(strtolower($bean->getMsgType()), $workerList)) {
+        if (key_exists(strtolower($bean->getMsgType()), $workerList)) {
             $worker = new $workerList[ $bean->getMsgType() ]($hook);
         } else {
             $worker = new DefaultResponseWorker($hook);
