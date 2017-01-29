@@ -11,7 +11,7 @@ namespace RebieKong\MpTools\Core;
 
 use PreviewFramework\Utils\ObjectTrait;
 use RebieKong\MpTools\Entity\MessageBean;
-use RebieKong\MpTools\HookInterface;
+use RebieKong\MpTools\Hook\HookInterface;
 
 abstract class AbstractResponseWorker
 {

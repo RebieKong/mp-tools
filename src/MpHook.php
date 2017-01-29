@@ -10,6 +10,7 @@ namespace RebieKong\MpTools;
 
 
 use PreviewFramework\Utils\ArrayUtils;
+use RebieKong\MpTools\Hook\HookInterface;
 
 class MpHook implements HookInterface
 {

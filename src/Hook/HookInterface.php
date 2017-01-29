@@ -6,7 +6,7 @@
  * Time: 上午9:09
  */
 
-namespace RebieKong\MpTools;
+namespace RebieKong\MpTools\Hook;
 
 
 interface HookInterface

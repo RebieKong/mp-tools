@@ -13,6 +13,7 @@ namespace RebieKong\MpTools;
 use PreviewFramework\Utils\ArrayUtils;
 use RebieKong\MpTools\Core\MpCore;
 use RebieKong\MpTools\Core\MpReceiver;
+use RebieKong\MpTools\Hook\HookInterface;
 
 class MpTask
 {

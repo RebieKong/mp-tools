@@ -21,6 +21,8 @@ class Prpcrypt
      *
      * @param string $text 需要加密的明文
      *
+     * @param $appid
+     *
      * @return string 加密后的密文
      */
     public function encrypt($text, $appid)
@@ -62,6 +64,8 @@ class Prpcrypt
      * 对密文进行解密
      *
      * @param string $encrypted 需要解密的密文
+     *
+     * @param $appid
      *
      * @return string 解密得到的明文
      */

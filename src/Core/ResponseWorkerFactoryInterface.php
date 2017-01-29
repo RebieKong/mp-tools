@@ -10,7 +10,7 @@ namespace RebieKong\MpTools\Core;
 
 
 use RebieKong\MpTools\Entity\MessageBean;
-use RebieKong\MpTools\HookInterface;
+use RebieKong\MpTools\Hook\HookInterface;
 
 interface ResponseWorkerFactoryInterface
 {
