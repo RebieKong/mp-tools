@@ -13,7 +13,6 @@ use RebieKong\MpTools\Entity\MessageBean;
 use RebieKong\MpTools\ResponseWorker\DefaultResponseWorker;
 use RebieKong\MpTools\ResponseWorker\Event;
 use RebieKong\MpTools\ResponseWorker\Msg;
-use RebieKong\MpTools\ResponseWorker\ResponseGainer;
 
 final class MpReceiver
 {
@@ -154,9 +153,6 @@ final class MpReceiver
     public function getResult()
     {
         $response = $this->responseWorker->_getResult($this->getBean());
-        if (is_null($response)) {
-            $response = ResponseGainer::genTextResult("你的请求已经收到但并未被正确监听", $this->getBean());
-        }
 
         return $response;
     }

@@ -11,7 +11,9 @@ namespace RebieKong\MpTools\Core;
 
 use PreviewFramework\Utils\ObjectTrait;
 use RebieKong\MpTools\Entity\MessageBean;
+use RebieKong\MpTools\Exception\HookException;
 use RebieKong\MpTools\Hook\HookInterface;
+use RebieKong\MpTools\ResponseWorker\ResponseGainer;
 
 abstract class AbstractResponseWorker
 {
@@ -31,6 +33,22 @@ abstract class AbstractResponseWorker
 
     public function _getResult(MessageBean $bean)
     {
-        return $this->hook->call($this->getTag(), ['bean' => $bean]);
+        try {
+            $response = $this->hook->call($this->getTag(), ['bean' => $bean]);
+        } catch (HookException $exception) {
+            switch ($exception->getCode()) {
+                case HookException::HOOK_NOT_EXIST:
+                    $response = ResponseGainer::genTextResult("没有哦相关监听",$bean);
+                    break;
+                case HookException::HOOK_CALL_ERROR:
+                    $response = ResponseGainer::genTextResult("钩子程序调用异常",$bean);
+                    break;
+                default:
+                    $response = 'success';
+                    break;
+            }
+        }
+        return $response;
+
     }
 }

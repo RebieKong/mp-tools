@@ -10,6 +10,7 @@ namespace RebieKong\MpTools;
 
 
 use PreviewFramework\Utils\ArrayUtils;
+use RebieKong\MpTools\Exception\HookException;
 use RebieKong\MpTools\Hook\HookInterface;
 
 class MpHook implements HookInterface
@@ -42,17 +43,20 @@ class MpHook implements HookInterface
     public function call($tag, $params)
     {
         if ( ! ArrayUtils::constanceKey($this->hooks, $tag)) {
-            return null;
+            throw new HookException(HookException::HOOK_NOT_EXIST);
         }
 
         $c        = ArrayUtils::get($this->hooks, $tag);
         $callable = ArrayUtils::get($c, 'function');
         $params   = array_merge($params, ArrayUtils::get($c, 'ext'));
 
-        if ( ! is_callable($callable)) {
-            return false;
+        // hook not existed
+        // hook exception
+
+        if ( ! is_callable($callable) || empty($response = @call_user_func_array($callable, $params))) {
+            throw new HookException(HookException::HOOK_CALL_ERROR);
         }
 
-        return @call_user_func_array($callable, $params);
+        return $response;
     }
 }
