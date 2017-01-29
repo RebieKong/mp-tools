@@ -19,7 +19,7 @@ class MpHook implements HookInterface
 
     public function hook($tag, callable $function, $extParam = [])
     {
-        if (ArrayUtils::constanceKey($this->hooks, $tag)) {
+        if (!ArrayUtils::constanceKey($this->hooks, $tag)) {
             $this->hooks[ $tag ] = [
                 'function' => $function,
                 'ext'      => $extParam,
