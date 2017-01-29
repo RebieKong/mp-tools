@@ -13,6 +13,7 @@ use RebieKong\MpTools\Entity\MessageBean;
 use RebieKong\MpTools\ResponseWorker\DefaultResponseWorker;
 use RebieKong\MpTools\ResponseWorker\Event;
 use RebieKong\MpTools\ResponseWorker\Msg;
+use RebieKong\MpTools\ResponseWorker\ResponseGainer;
 
 final class MpReceiver
 {
@@ -44,9 +45,9 @@ final class MpReceiver
 
         $type = $this->getBean()->getMsgType();
         if (strtolower($type) === 'event') {
-            $worker = Event::getResponseWorker($this->getBean(),$hook);
+            $worker = Event::getResponseWorker($this->getBean(), $hook);
         } else {
-            $worker = Msg::getResponseWorker($this->getBean(),$hook);
+            $worker = Msg::getResponseWorker($this->getBean(), $hook);
         }
         if ( ! ($worker instanceof AbstractResponseWorker)) {
             $worker = new DefaultResponseWorker($hook);
@@ -80,10 +81,10 @@ final class MpReceiver
     private function getTags($data)
     {
         $result = [];
-        $root = $this->getXml($data)->childNodes->item(0)->childNodes;
+        $root   = $this->getXml($data)->childNodes->item(0)->childNodes;
         for ($i = 0 ; $i < $root->length ; $i++) {
             if ($root->item($i)->nodeName != '#text') {
-                $result[$root->item($i)->nodeName] = trim($root->item($i)->nodeValue);
+                $result[ $root->item($i)->nodeName ] = trim($root->item($i)->nodeValue);
             }
         }
 
@@ -153,6 +154,9 @@ final class MpReceiver
     public function getResult()
     {
         $response = $this->responseWorker->_getResult($this->getBean());
+        if (is_null($response)) {
+            $response = ResponseGainer::genTextResult("你的请求已经收到但并未被正确监听", $this->getBean());
+        }
 
         return $response;
     }
