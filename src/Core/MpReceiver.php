@@ -10,6 +10,7 @@ namespace RebieKong\MpTools\Core;
 
 
 use RebieKong\MpTools\Entity\MessageBean;
+use RebieKong\MpTools\Exception\EncryptException;
 use RebieKong\MpTools\ResponseWorker\DefaultResponseWorker;
 use RebieKong\MpTools\ResponseWorker\Event;
 use RebieKong\MpTools\ResponseWorker\Msg;
@@ -57,12 +58,12 @@ final class MpReceiver
     /**
      * @param string $data
      *
-     * @throws \Exception
+     * @throws \RebieKong\MpTools\Exception\EncryptException
      */
     private function setBean($data)
     {
         if (is_null($data)) {
-            throw new \Exception("DATA CAN BE NULL");
+            throw new EncryptException("DATA CAN BE NULL");
         }
         $bean = new MessageBean();
         $data = $this->getTags($data);
@@ -132,7 +133,7 @@ final class MpReceiver
      * @param \RebieKong\MpTools\Core\MpCore $decrypt
      *
      * @return static
-     * @throws \Exception
+     * @throws \RebieKong\MpTools\Exception\EncryptException
      */
     public static function init($data, $hook, MpCore $decrypt = null)
     {
@@ -140,7 +141,7 @@ final class MpReceiver
         $xml->loadXML($data);
         if ($xml->getElementsByTagName('Encrypt')->length > 0) {
             if (is_null($decrypt)) {
-                throw new \Exception("Data Is Encrypt But Decrypt Is NULL");
+                throw new EncryptException("Data Is Encrypt But Decrypt Is NULL");
             }
             $data = $decrypt->decrypt($data);
             $xml  = new \DOMDocument();

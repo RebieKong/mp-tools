@@ -50,9 +50,6 @@ class MpHook implements HookInterface
         $callable = ArrayUtils::get($c, 'function');
         $params   = array_merge($params, ArrayUtils::get($c, 'ext'));
 
-        // hook not existed
-        // hook exception
-
         if ( ! is_callable($callable) || empty($response = @call_user_func_array($callable, $params))) {
             throw new HookException(HookException::HOOK_CALL_ERROR);
         }

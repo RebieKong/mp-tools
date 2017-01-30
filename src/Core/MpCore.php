@@ -3,6 +3,7 @@ namespace RebieKong\MpTools\Core;
 
 use PreviewFramework\Utils\ArrayUtils;
 use PreviewFramework\Utils\RandomUtils;
+use RebieKong\MpTools\Exception\EncryptException;
 
 /**
  * Created by PhpStorm.
@@ -23,7 +24,7 @@ class MpCore extends AbstractMp
             if ($errCode == 0) {
                 $text = $encryptMsg;
             } else {
-                throw new \Exception("Decrypt Error For code:".$errCode);
+                throw new EncryptException("Decrypt Error For code:".$errCode);
             }
         }
 
@@ -41,7 +42,7 @@ class MpCore extends AbstractMp
         $msg = '';
         $errCode = $this->getCrypt()->decryptMsg($msgSignature, $timestamp, $nonce, $data, $msg);
         if ($errCode != 0) {
-            throw new \Exception("Decrypt Error For code:".$errCode);
+            throw new EncryptException("Decrypt Error For code:".$errCode);
         }
 
         return $msg;
