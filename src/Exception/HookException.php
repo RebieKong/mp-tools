@@ -22,7 +22,7 @@ class HookException extends MpException
         parent::__construct($message, $code, null);
     }
 
-    public function handle(){
+    public function handle($bean){
 
         switch ($this->getCode()) {
             case HookException::HOOK_NOT_EXIST:
