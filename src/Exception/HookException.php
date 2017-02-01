@@ -9,7 +9,8 @@
 namespace RebieKong\MpTools\Exception;
 
 
-use RebieKong\MpTools\ResponseWorker\ResponseGainer;
+use RebieKong\MpTools\Entity\MessageBean;
+use RebieKong\MpTools\Hook\HookInterface;
 
 class HookException extends MpException
 {
@@ -22,14 +23,21 @@ class HookException extends MpException
         parent::__construct($message, $code, null);
     }
 
-    public function handle($bean){
+    /**
+     * @param MessageBean $bean
+     * @param HookInterface $hook
+     *
+     * @return string
+     */
+    public function handle($bean, $hook)
+    {
 
         switch ($this->getCode()) {
             case HookException::HOOK_NOT_EXIST:
-                $response = ResponseGainer::genTextResult("没有的相关监听事件", $bean);
+                $response = $hook->call('HOOK_NOT_EXIST', ['bean' => $bean]);
                 break;
             case HookException::HOOK_CALL_ERROR:
-                $response = ResponseGainer::genTextResult("钩子程序调用异常",$bean);
+                $response = $hook->call('HOOK_CALL_ERROR', ['bean' => $bean]);
                 break;
             default:
                 $response = 'success';

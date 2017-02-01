@@ -35,7 +35,7 @@ abstract class AbstractResponseWorker
         try {
             $response = $this->hook->call($this->getTag(), ['bean' => $bean]);
         } catch (HookException $exception) {
-            $response = $exception->handle($bean);
+            $response = $exception->handle($bean,$this->hook);
         }
         return $response;
 
