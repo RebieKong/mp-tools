@@ -9,11 +9,12 @@
 namespace RebieKong\MpTools\ResponseWorker\Message;
 
 use RebieKong\MpTools\Core\AbstractResponseWorker;
+use RebieKong\MpTools\Hook\HookInterface;
 
 class Voice extends AbstractResponseWorker
 {
     protected function getTag()
     {
-        return 'voice';
+        return HookInterface::HOOK_MSG_VOICE;
     }
 }

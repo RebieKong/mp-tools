@@ -9,12 +9,13 @@
 namespace RebieKong\MpTools\ResponseWorker\Message;
 
 use RebieKong\MpTools\Core\AbstractResponseWorker;
+use RebieKong\MpTools\Hook\HookInterface;
 
 class Video extends AbstractResponseWorker
 {
 
     protected function getTag()
     {
-        return 'video';
+        return HookInterface::HOOK_MSG_VIDEO;
     }
 }

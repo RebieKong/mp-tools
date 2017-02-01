@@ -9,12 +9,13 @@
 namespace RebieKong\MpTools\ResponseWorker\Message;
 
 use RebieKong\MpTools\Core\AbstractResponseWorker;
+use RebieKong\MpTools\Hook\HookInterface;
 
 class Image extends AbstractResponseWorker
 {
 
     protected function getTag()
     {
-        return 'image';
+        return HookInterface::HOOK_MSG_IMAGE;
     }
 }

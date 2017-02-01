@@ -9,6 +9,7 @@
 namespace RebieKong\MpTools\ResponseWorker\Message;
 
 use RebieKong\MpTools\Core\AbstractResponseWorker;
+use RebieKong\MpTools\Hook\HookInterface;
 
 
 class Location extends AbstractResponseWorker
@@ -17,6 +18,6 @@ class Location extends AbstractResponseWorker
 
     protected function getTag()
     {
-        return 'location';
+        return HookInterface::HOOK_MSG_LOCATION;
     }
 }

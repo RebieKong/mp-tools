@@ -10,12 +10,13 @@
 namespace RebieKong\MpTools\ResponseWorker\Message;
 
 use RebieKong\MpTools\Core\AbstractResponseWorker;
+use RebieKong\MpTools\Hook\HookInterface;
 
 class Text extends AbstractResponseWorker
 {
 
     protected function getTag()
     {
-        return 'text';
+        return HookInterface::HOOK_MSG_TEXT;
     }
 }

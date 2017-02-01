@@ -35,11 +35,7 @@ class MpHook implements HookInterface
     public function hook($tag, callable $function, $extParam = [])
     {
         if (!ArrayUtils::constanceKey($this->hooks, $tag)) {
-            $this->hooks[ $tag ] = [
-                'function' => $function,
-                'ext'      => $extParam,
-            ];
-
+            $this->hookForce($tag, $function, $extParam);
             return true;
         }
 
@@ -80,11 +76,11 @@ class MpHook implements HookInterface
 
     public function addHookNotExistFunction(callable $function)
     {
-        $this->hookForce('HOOK_NOT_EXIST',$function);
+        $this->hookForce(HookInterface::HOOK_FUNCTION_NOT_EXIST, $function);
     }
 
     public function addHookCallErrorFunction(callable $function)
     {
-        $this->hookForce('HOOK_CALL_ERROR',$function);
+        $this->hookForce(HookInterface::HOOK_FUNCTION_CALL_ERROR, $function);
     }
 }

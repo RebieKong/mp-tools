@@ -34,10 +34,10 @@ class HookException extends MpException
 
         switch ($this->getCode()) {
             case HookException::HOOK_NOT_EXIST:
-                $response = $hook->call('HOOK_NOT_EXIST', ['bean' => $bean]);
+                $response = $hook->call(HookInterface::HOOK_FUNCTION_NOT_EXIST, ['bean' => $bean]);
                 break;
             case HookException::HOOK_CALL_ERROR:
-                $response = $hook->call('HOOK_CALL_ERROR', ['bean' => $bean]);
+                $response = $hook->call(HookInterface::HOOK_FUNCTION_CALL_ERROR, ['bean' => $bean]);
                 break;
             default:
                 $response = 'success';
