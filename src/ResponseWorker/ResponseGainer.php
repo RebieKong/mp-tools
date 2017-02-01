@@ -59,4 +59,16 @@ XML;
 
         return sprintf($xml, $dataBean->getFromUserName(), $dataBean->getToUserName(), time(), $content);
     }
+
+
+    private static $nullStr = null;
+
+    public static function nullResult()
+    {
+        if (is_null(self::$nullStr)) {
+            self::$nullStr = md5(mt_rand(0, 1000));
+        }
+
+        return self::$nullStr;
+    }
 }

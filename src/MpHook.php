@@ -20,12 +20,11 @@ class MpHook implements HookInterface
 
     public function __construct()
     {
-
-        $this->addHookCallErrorFunction(function ($bean) {
+        $this->addHookNotExistFunction(function ($bean) {
             $response = ResponseGainer::genTextResult("没有的相关监听事件", $bean);
             return $response;
         });
-        $this->addHookNotExistFunction(function ($bean) {
+        $this->addHookCallErrorFunction(function ($bean) {
             $response = ResponseGainer::genTextResult("钩子程序调用异常", $bean);
             return $response;
         });

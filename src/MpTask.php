@@ -14,6 +14,7 @@ use PreviewFramework\Utils\ArrayUtils;
 use RebieKong\MpTools\Core\MpCore;
 use RebieKong\MpTools\Core\MpReceiver;
 use RebieKong\MpTools\Hook\HookInterface;
+use RebieKong\MpTools\ResponseWorker\ResponseGainer;
 
 class MpTask
 {
@@ -37,7 +38,7 @@ class MpTask
             } else {
                 $receiver = MpReceiver::init($data, $this->hook,$mp);
                 $result   = $receiver->getResult();
-                if ($result === false) {
+                if ($result === ResponseGainer::nullResult()) {
                     $result = 'success';
                 } else {
                     $result = $mp->encrypt($result);
