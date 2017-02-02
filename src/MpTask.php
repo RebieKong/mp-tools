@@ -6,9 +6,7 @@
  * Time: 下午10:22
  */
 
-
 namespace RebieKong\MpTools;
-
 
 use PreviewFramework\Utils\ArrayUtils;
 use RebieKong\MpTools\Core\MpCore;
@@ -28,7 +26,7 @@ class MpTask
 
     public function run($appId, $appSecret, $token, $aesKey)
     {
-        $mp   = new MpCore($appId, $appSecret, $token, $aesKey);
+        $mp   = $this->getMpCore($appId, $appSecret, $token, $aesKey);
         $data = file_get_contents("php://input");
         if ( ! $mp->validateSign()) {
             $result = 'some thing wrong';
@@ -47,6 +45,13 @@ class MpTask
         }
 
         return $result;
+    }
+
+    private function getMpCore($appId, $appSecret, $token, $aesKey)
+    {
+        $mp = new MpCore($appId, $appSecret, $token, $aesKey);
+
+        return $mp;
     }
 
 }

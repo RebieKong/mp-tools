@@ -32,7 +32,7 @@ class MpHook implements HookInterface
 
     private $hooks = [];
 
-    public function hook($tag, callable $function, $extParam = [])
+    public function hook($tag, $function, $extParam = [])
     {
         if (!ArrayUtils::constanceKey($this->hooks, $tag)) {
             $this->hookForce($tag, $function, $extParam);
@@ -42,7 +42,7 @@ class MpHook implements HookInterface
         return false;
     }
 
-    public function hookForce($tag, callable $function, $extParam = [])
+    public function hookForce($tag, $function, $extParam = [])
     {
         $this->hooks[ $tag ] = [
             'function' => $function,

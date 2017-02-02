@@ -11,6 +11,7 @@ namespace RebieKong\MpTools;
 
 use RebieKong\MpTools\Entity\MessageBean;
 use RebieKong\MpTools\Hook\HookFunction;
+use RebieKong\MpTools\ResponseWorker\ResponseGainer;
 
 class MpHookFunction extends HookFunction
 {
@@ -40,5 +41,15 @@ class MpHookFunction extends HookFunction
         if (is_callable($function)) {
             $this->function = $function;
         }
+    }
+
+    public static function getNullFunction()
+    {
+        $function = new static();
+        $function->setFunction(function ($bean) {
+            return ResponseGainer::nullResult();
+        });
+
+        return $function;
     }
 }

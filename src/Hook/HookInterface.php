@@ -22,9 +22,9 @@ interface HookInterface
     const HOOK_FUNCTION_NOT_EXIST='HOOK_NOT_EXIST';
     const HOOK_FUNCTION_CALL_ERROR='HOOK_CALL_ERROR';
 
-    public function hook($tag, callable $function, $extParam = []);
+    public function hook($tag, $function, $extParam = []);
 
-    public function hookForce($tag, callable $function, $extParam = []);
+    public function hookForce($tag, $function, $extParam = []);
 
     public function call($tag,$params);
 }
