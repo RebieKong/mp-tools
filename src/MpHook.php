@@ -74,12 +74,12 @@ class MpHook implements HookInterface
         return $response;
     }
 
-    public function addHookNotExistFunction(callable $function)
+    public function addHookNotExistFunction($function)
     {
         $this->hookForce(HookInterface::HOOK_FUNCTION_NOT_EXIST, $function);
     }
 
-    public function addHookCallErrorFunction(callable $function)
+    public function addHookCallErrorFunction($function)
     {
         $this->hookForce(HookInterface::HOOK_FUNCTION_CALL_ERROR, $function);
     }
