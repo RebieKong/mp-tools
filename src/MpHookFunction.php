@@ -18,10 +18,7 @@ class MpHookFunction extends HookFunction
 
     public function run(MessageBean $bean)
     {
-        return call_user_func([
-            $this,
-            'run',
-        ], $bean);
+        return call_user_func($this->function, $bean);
     }
 
     /**
