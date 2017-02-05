@@ -41,7 +41,7 @@ XML;
             $article .= sprintf($articleItemXml, $item['title'], $item['description'], $item['pic_url'], $item['url']);
         }
 
-        return sprintf($xml, $dataBean->getFromUserName(), $dataBean->getToUserName(), time(), count($articles),
+        return sprintf($xml, $dataBean->fromUserName, $dataBean->toUserName, time(), count($articles),
             $article);
     }
 
@@ -57,7 +57,7 @@ XML;
 </xml>
 XML;
 
-        return sprintf($xml, $dataBean->getFromUserName(), $dataBean->getToUserName(), time(), $content);
+        return sprintf($xml, $dataBean->fromUserName, $dataBean->toUserName, time(), $content);
     }
 
 

@@ -43,7 +43,7 @@ final class MpReceiver
     {
         $this->setBean($data);
 
-        $type = $this->getBean()->getMsgType();
+        $type = $this->getBean()->msgType;
         if (strtolower($type) === 'event') {
             $worker = Event::getResponseWorker($this->getBean(), $hook);
         } else {
